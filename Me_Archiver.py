@@ -1,65 +1,74 @@
+#==========================
+#Me_Archiver 2.0 Update
+#Implements OOP Structure
+#Author: MevanKoda
+#==========================
+
 import shutil
 import tkinter as tk
-from tkinter import filedialog,messagebox
+from tkinter import filedialog, messagebox
 
+class App():
+    def __init__(self):
+        self.folder_path = ""
+        self.destination = ""
 
-folder_path = ""
-destination = ""
-def selectFolder():
-    global folder_path
-    folder_path = filedialog.askdirectory()
-    pathInput.insert(0,folder_path)
-    if not folder_path:
-        print("No Folder Selected")
-    else:
-        print(f"Folder Path = {folder_path}")
-    return folder_path
+        self.root = tk.Tk()
+        self.root.title("Me Archiver")
+        self.root.geometry("500x500")
 
-def selectDest():
-    global destination
-    destination = filedialog.askdirectory()
-    arcPathInput.insert(0,destination)
-    if not destination:
-        print("No Destination Selected")
-    else:
-        print(f"Archive Destination = {destination}")
-    return destination
+        self.label = tk.Label(self.root,text="ME ARCHIVER 2.0", font=('TkHeadingFont',20))
+        self.label.pack(padx=20, pady=20)
 
-def archiveFolder():
-    try:
-        shutil.make_archive(destination, 'zip',folder_path)
-        print(f"Archived Successfully✅ at {destination+"/MeArchive"}")
-        pathInput.delete(0,tk.END)
-        arcPathInput.delete(0,tk.END)
-        messagebox.showinfo("Me Archiver", "Archived Successfully✅")
-    except:
-        print("Archive Failed😥")
-        print(folder_path)
+        self.slogan = tk.Label(self.root, text="Simple & Light", font=('TkCaptionFont', 15))
+        self.slogan.pack()
 
-root = tk.Tk()
-root.title("Me Archiver")
-root.geometry("400x400")
+        #Enter File Path
+        self.file_label = tk.Label(self.root, text="Enter File Path", font=('TkHeadingFont', 10))
+        self.file_label.pack(padx=20, pady=20)
+        self.path_input = tk.Entry(self.root, font=('TkTextFont',10),width =50)
+        self.path_input.pack(padx=20, pady=10)
+        self.browser_btn = tk.Button(self.root, text="Browse", font=("TkTextFont",10), command= self.select_folder)
+        self.browser_btn.pack(padx=20)
 
-Label = tk.Label(root, text="ME ARCHIVER 1.0", font=('Arial',20))
-Label.pack(padx=20, pady=20)
+        #Archive Destination
+        self.archive_label = tk.Label(self.root, text="Enter Destination", font=('TkHeadingFont',10))
+        self.archive_label.pack(padx=20, pady=20)
+        self.arc_path_input = tk.Entry(self.root, font=('TkTextFont',10),width=50)
+        self.arc_path_input.pack(padx=20)
+        self.browse_btn = tk.Button(self.root,text="Browse",font=("TkTextFont",10), command= self.select_dest)
+        self.browse_btn.pack(padx=20, pady=10)
 
-introLabel = tk.Label(root, text="Simple & Lightweight", font=('Arial',10))
-introLabel.pack(padx=20)
+        self.archive_btn = tk.Button(self.root, text="Archive", font=("TkHeadingFont",15),command=self.archive_folder,height=2, width=20)
+        self.archive_btn.pack(padx=20,pady=10)
+        self.root.mainloop()
 
-fileLabel=tk.Label(root, text="Enter File Path:", font=('Arial',12))
-fileLabel.pack(padx=20)
-pathInput= tk.Entry(root,font=('Arial', 10),width=40)
-pathInput.pack(padx=20,pady=10,)
-browseBtn = tk.Button(root, text="Browse", font=('Arial',10), command=selectFolder)
-browseBtn.pack(padx=20)
+    def select_folder(self):
+        self.folder_path = filedialog.askdirectory()
+        self.path_input.insert(0,self.folder_path)
+        if self.folder_path:
+            print(f"Folder Path={self.folder_path}")
+        else:
+            print("No Folder Selected")
+        return self.folder_path
 
-archiveLabel = tk.Label(root, text="Enter Archive Destination:", font=('Arial',12))
-archiveLabel.pack(padx=20)
-arcPathInput= tk.Entry(root,font=('Arial', 10),width=40)
-arcPathInput.pack(padx=20,pady=10,)
-browseBtn = tk.Button(root, text="Browse", font=('Arial',10),command=selectDest)
-browseBtn.pack(padx=20)
-archiveBtn = tk.Button(root, text="Archive",font=('Arial', 10), command=archiveFolder)
-archiveBtn.pack(padx=20,pady=20)
+    def select_dest(self):
+        self.destination = filedialog.askdirectory()
+        self.arc_path_input.insert(0, self.destination)
+        if self.destination:
+            print(f"Archive Destination = {self.destination}")
+        else:
+            print("No Destination Selected")
+        return self.destination
 
-root.mainloop()
+    def archive_folder(self):
+        try:
+            shutil.make_archive(self.destination,'zip',self.folder_path)
+            print(f"Archived Successfully✅ at {self.destination+"/MeArchive"}")
+            self.path_input.delete(0,tk.END)
+            self.arc_path_input.delete(0,tk.END)
+            messagebox.showinfo("Me Archiver 2.0", "Archived Successfully")
+        except:
+            print("Archive Failed😥")
+
+App()
