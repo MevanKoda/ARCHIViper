@@ -19,7 +19,7 @@ class App():
         self.root.title("Me Archiver")
         self.root.geometry("500x500")
 
-        self.label = tk.CTkLabel(self.root,text="ME ARCHIVER 2.0", font=('CTkHeadingFont',30),text_color="lightblue")
+        self.label = tk.CTkLabel(self.root,text="ME ARCHIVER 3.0", font=('CTkHeadingFont',30),text_color="lightblue")
         self.label.pack(padx=20, pady=20)
 
         self.slogan = tk.CTkLabel(self.root, text="Simple & Light", font=('CTkCaptionFont', 15))
