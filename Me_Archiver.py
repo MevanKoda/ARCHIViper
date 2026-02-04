@@ -45,6 +45,7 @@ class App():
 
     def select_folder(self):
         self.folder_path = filedialog.askdirectory()
+
         self.path_input.insert(0,self.folder_path)
         if self.folder_path:
             print(f"Folder Path={self.folder_path}")
@@ -54,6 +55,7 @@ class App():
 
     def select_dest(self):
         self.destination = filedialog.askdirectory()
+        self.archive_name = input("Enter Zip Name :- ")
         self.arc_path_input.insert(0, self.destination)
         if self.destination:
             print(f"Archive Destination = {self.destination}")
@@ -63,8 +65,8 @@ class App():
 
     def archive_folder(self):
         try:
-            shutil.make_archive(self.destination,'zip',self.folder_path)
-            print(f"Archived Successfully✅ at {self.destination+"/MeArchive"}")
+            shutil.make_archive((self.destination+"/"+self.archive_name),'zip',self.folder_path)
+            print(f"Archived Successfully✅ at {self.archive_name}")
             self.path_input.delete(0,tk.END)
             self.arc_path_input.delete(0,tk.END)
             messagebox.showinfo("Me Archiver 2.0", "Archived Successfully")
