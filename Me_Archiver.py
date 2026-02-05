@@ -25,8 +25,17 @@ class App():
         self.slogan = tk.CTkLabel(self.root, text="Simple & Light", font=('CTkCaptionFont', 15))
         self.slogan.pack()
 
+        self.menu_frame = tk.CTkFrame(self.root,fg_color="transparent")
+        self.menu_frame.pack(pady=10)
 
-        self.frame1 = tk.CTkFrame(self.root)
+        self.archive_option_btn = tk.CTkButton(self.menu_frame,text="Archive",font=("CTkHeadingFont",15),fg_color="green",hover_color="darkgreen",command=self.archive_menu)
+        self.archive_option_btn.grid(row=0,column=0,padx=5)
+        self.extract_option_btn = tk.CTkButton(self.menu_frame, text="Extract", font=("CTkHeadingFont", 15),fg_color="yellow",text_color="black",hover_color="orange",command=self.extract_menu)
+        self.extract_option_btn.grid(row=0, column=1,padx=5)
+
+        self.archive_section= tk.CTkScrollableFrame(self.root,fg_color="transparent",height=450, width=600)
+        self.archive_section.pack(expand=True)
+        self.frame1 = tk.CTkFrame(self.archive_section)
         self.frame1.pack(padx=40,pady=(10,0))
         #initialize grid
         self.frame1.grid_columnconfigure(0, weight=1)
@@ -43,7 +52,7 @@ class App():
         self.browser_btn = tk.CTkButton(self.frame1, text="Browse", font=("TkTextFont",10), command= self.select_folder)
         self.browser_btn.grid(row=1,column=1,padx=20)
 
-        self.frame2 = tk.CTkFrame(self.root)
+        self.frame2 = tk.CTkFrame(self.archive_section)
         self.frame2.pack(pady=(10, 10))
         # initialize grid
         self.frame2.grid_columnconfigure(0, weight=1)
@@ -54,16 +63,16 @@ class App():
         self.frame2.grid_rowconfigure(1, weight=1)
         #Zip Name
         self.name_label = tk.CTkLabel(self.frame2, text="Enter name", font=('CTkHeadingFont',15),anchor="w")
-        self.name_label.grid(row=0,column=0,padx=20, pady=(10,0),sticky="ew")
+        self.name_label.grid(row=0,column=0,padx=15, pady=(10,0),sticky="ew")
         self.name_input = tk.CTkEntry(self.frame2,font=('CTkTextFont',10),width= 200)
-        self.name_input.grid(row=1,column=0,padx=20,pady=10)
+        self.name_input.grid(row=1,column=0,padx=10,pady=10)
         self.type_label = tk.CTkLabel(self.frame2, text="Type",font=('CTkHeadingFont',15),anchor="w")
         self.type_label.grid(row=0,column=1,sticky="ew",padx=20,pady=(10,0))
         self.type_drop_down= tk.CTkOptionMenu(self.frame2, values=["zip","tar","gztar","bztar","xztar","zstdtar"])
-        self.type_drop_down.grid(row=1,column=1,padx=20,pady=10)
+        self.type_drop_down.grid(row=1,column=1,padx=15,pady=10)
 
 
-        self.frame3 = tk.CTkFrame(self.root)
+        self.frame3 = tk.CTkFrame(self.archive_section)
         self.frame3.pack(padx=40, pady=(10, 0))
         # initialize grid
         self.frame3.grid_columnconfigure(0, weight=1)
@@ -79,7 +88,7 @@ class App():
         self.browse_btn = tk.CTkButton(self.frame3,text="Browse",font=("TkTextFont",10), command= self.select_dest)
         self.browse_btn.grid(row=1,column=1,padx=20, pady=10)
 
-        self.archive_btn = tk.CTkButton(self.root, text="Archive", font=("CTkHeadingFont",15),command=self.archive_folder,fg_color="green", text_color="white", hover_color="darkgreen",width=100,height=35)
+        self.archive_btn = tk.CTkButton(self.archive_section, text="Archive", font=("CTkHeadingFont",15),command=self.archive_folder,fg_color="green", text_color="white", hover_color="darkgreen",width=100,height=35)
         self.archive_btn.pack(padx=20,pady=20)
         self.root.mainloop()
 
@@ -114,5 +123,14 @@ class App():
             self.name_input.delete(0,tk.END)
         except:
             print("Archive Failed😥")
+
+    def archive_menu(self):
+        print("Archive Menu")
+        self.archive_section.pack()
+
+    def extract_menu(self):
+        print("Extract Menu")
+        self.archive_section.pack_forget()
+
 
 App()
