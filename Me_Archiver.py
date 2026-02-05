@@ -20,6 +20,7 @@ class App():
         self.root = tk.CTk()
         self.root.title("Me Archiver")
         self.root.geometry("500x500")
+        self.root.resizable(False,False)
 
         # =======================
         # Title section
