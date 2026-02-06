@@ -10,7 +10,7 @@ import shutil
 import customtkinter as tk
 from CTkMessagebox import CTkMessagebox
 from customtkinter import filedialog
-
+from PIL import Image
 
 class App():
     def __init__(self):
@@ -23,6 +23,8 @@ class App():
         self.root.title("ARCHIViper")
         self.root.geometry("500x500")
 
+        self.logo= tk.CTkImage(Image.open("UI/icons/PYTHON1.png"),size=(100,100))
+
         self.root.iconbitmap("UI/icons/PYTHON1.ico")
         self.root.resizable(False,False)
 
@@ -31,9 +33,10 @@ class App():
         # =======================
 
         self.label = tk.CTkLabel(self.root,text="ARCHIViper", font=('CTkHeadingFont',30),text_color="lightgreen")
-        self.label.pack(padx=20, pady=20)
-
-        self.slogan = tk.CTkLabel(self.root, text="Simple & Light", font=('CTkCaptionFont', 15))
+        self.label.pack(padx=20, pady=(10,0))
+        self.logoImage = tk.CTkLabel(self.root,image=self.logo,text="")
+        self.logoImage.pack(pady=(0,10))
+        self.slogan = tk.CTkLabel(self.root, text="Simple & Light File Archiver", font=('CTkCaptionFont', 15))
         self.slogan.pack()
 
         self.menu_frame = tk.CTkFrame(self.root,fg_color="transparent")
