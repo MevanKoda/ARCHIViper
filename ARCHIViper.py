@@ -1,5 +1,6 @@
 #==========================
 #Me_Archiver 3.0 Update
+#Name change :- ARCViper
 #Implements OOP Structure
 #CustomTkinter GUI for better UI
 #Author: MevanKoda
@@ -7,8 +8,9 @@
 
 import shutil
 import customtkinter as tk
-import ctkmessagebox2 as messagebox
+from CTkMessagebox import CTkMessagebox
 from customtkinter import filedialog
+
 
 class App():
     def __init__(self):
@@ -18,15 +20,17 @@ class App():
         self.extract_destination = ""
 
         self.root = tk.CTk()
-        self.root.title("Me Archiver")
+        self.root.title("ARCHIViper")
         self.root.geometry("500x500")
+
+        self.root.iconbitmap("UI/icons/PYTHON1.ico")
         self.root.resizable(False,False)
 
         # =======================
         # Title section
         # =======================
 
-        self.label = tk.CTkLabel(self.root,text="ME ARCHIVER 3.0", font=('CTkHeadingFont',30),text_color="lightblue")
+        self.label = tk.CTkLabel(self.root,text="ARCHIViper", font=('CTkHeadingFont',30),text_color="lightgreen")
         self.label.pack(padx=20, pady=20)
 
         self.slogan = tk.CTkLabel(self.root, text="Simple & Light", font=('CTkCaptionFont', 15))
@@ -168,12 +172,12 @@ class App():
         )
         self.extract_label.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-        self.ext_path_input = tk.CTkEntry(
+        self.ext_dest_input = tk.CTkEntry(
             self.ext_frame2,
             font=('TkTextFont', 10),
             width=350
         )
-        self.ext_path_input.grid(row=1, column=0, padx=20, pady=10)
+        self.ext_dest_input.grid(row=1, column=0, padx=20, pady=10)
 
         self.browse_btn = tk.CTkButton(
             self.ext_frame2,
@@ -225,11 +229,16 @@ class App():
             self.archive_type = self.type_drop_down.get()
             shutil.make_archive((self.destination+"/"+self.zip_name),self.archive_type,self.folder_path)
             print(f"Archived Successfully✅ at {self.destination + "/" + self.zip_name}")
-            self.path_input.delete(0,tk.END)
             self.arc_path_input.delete(0,tk.END)
+            self.arc_dest_input.delete(0,tk.END)
             self.name_input.delete(0,tk.END)
+            CTkMessagebox(title="ARCHIViper", message="Archive Successful",icon="check")
         except:
             print("Archive Failed😥")
+            CTkMessagebox(title="ARCHIViper", message="Archive Failed",icon="cancel")
+            self.arc_path_input.delete(0, tk.END)
+            self.arc_dest_input.delete(0, tk.END)
+
 
     def archive_menu(self):
         print("Archive Menu")
@@ -244,12 +253,16 @@ class App():
 
     def select_file(self):
         self.archive_file = filedialog.askopenfilename(title="Open a file")
+        self.ext_path_input.insert(0, self.archive_file)
+
         if self.archive_file:
             print(f"Selected file :- {self.archive_file}")
         return self.archive_file
 
     def extract_dest(self):
         self.extract_destination= filedialog.askdirectory()
+        self.ext_dest_input.insert(0, self.extract_destination)
+
 
         if not self.extract_destination:
             print("No extract destination selected!!!")
@@ -257,7 +270,12 @@ class App():
         try:
             shutil.unpack_archive(self.archive_file, self.extract_destination)
             print(f"Extract Successfully✅ at {self.extract_destination}")
+            CTkMessagebox(title="ARCHIViper", message="File Extracted Successfully",icon="check")
         except:
             print("Extract Failed😥")
+            CTkMessagebox(title="ARCHIViper", message="Extract Failed",icon="cancel")
+            self.ext_path_input.delete(0, tk.END)
+            self.ext_dest_input.delete(0, tk.END)
+
 
 App()
