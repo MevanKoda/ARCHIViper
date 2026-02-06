@@ -11,6 +11,18 @@ import customtkinter as tk
 from CTkMessagebox import CTkMessagebox
 from customtkinter import filedialog
 from PIL import Image
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Get absolute path to resource (works for dev & PyInstaller) """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath("")
+
+    return os.path.join(base_path, relative_path)
+
 
 class App():
     def __init__(self):
@@ -23,9 +35,9 @@ class App():
         self.root.title("ARCHIViper")
         self.root.geometry("500x500")
 
-        self.logo= tk.CTkImage(Image.open("UI/icons/PYTHON1.png"),size=(100,100))
+        self.logo= tk.CTkImage(Image.open(resource_path("UI/icons/PYTHON1.png")),size=(100,100))
 
-        self.root.iconbitmap("UI/icons/PYTHON1.ico")
+        self.root.iconbitmap(resource_path("UI/icons/PYTHON1.ico"))
         self.root.resizable(False,False)
 
         # =======================
