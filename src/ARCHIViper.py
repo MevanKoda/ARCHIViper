@@ -35,7 +35,7 @@ class App():
         self.root.title("ARCHIViper")
         self.root.geometry("500x500")
 
-        self.logo= tk.CTkImage(Image.open(resource_path("UI/icons/PYTHON1.png")),size=(100,100))
+        self.logo= tk.CTkImage(Image.open(resource_path("UI/icons/PYTHON1.png")), size=(100, 100))
 
         self.root.iconbitmap(resource_path("UI/icons/PYTHON1.ico"))
         self.root.resizable(False,False)
